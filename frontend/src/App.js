@@ -1,23 +1,28 @@
 // import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import Registration from './components/registration/Registration';
 import Login from './components/login/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import Dashboard from './components/dashboard/Dashboard';
+import Home from './components/home/Home';
+import Layout from './components/header/Layout';
+import BookMarks from './components/bookmark/Bookmarks';
 
 function App() {
-  return (  <div className='app'>
+  return (<div className='app'>
     <Router>
-      <div>
+      <div className='flex-item'>
         <Routes>
           <Route path='/' element={<Registration />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/dashboard' element={<ProtectedRoute> <Dashboard/> </ProtectedRoute>} />
-          {/* <ProtectedRoute path='/dashboard' component={Dashboard}  /> */}
-        </Routes>
-        </div>
+          <Route element={<Layout />}>
+              <Route path='/dashboard' element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
+            <Route path='/bookmarks' element={<ProtectedRoute> <BookMarks /> </ProtectedRoute>} />
+          </Route>     
+          </Routes>
+      </div>
     </Router>
   </div>
   );
