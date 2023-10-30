@@ -1,0 +1,60 @@
+.paper-detail {
+    width: 30%;
+    overflow-y: auto;
+    /* Use 'auto' to add a scroll bar when needed */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 30%;
+    float: left;
+}
+
+.comment-input {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    /* Vertically center the elements */
+}
+
+textarea {
+    flex: 1;
+    /* Allow the textarea to grow and fill available space */
+    margin-right: 10px;
+    /* Add some spacing between the textarea and button */
+}
+
+.single-comment{
+    display: block;
+    text-align: left;
+    border: 1px solid;
+}
+
+.title-parent{
+    display: flex;
+    width: 100%;
+}
+
+.child-btn{
+    height: 60px;
+}
+
+.title-btn{
+    background-color: rgb(230, 84, 84);
+    margin-right: 5px;
+}
+
+.title-btn:hover{
+    background-color: rgb(300, 140, 140);
+}
+
+.btn-dark{
+    background-color: black;
+    color: white;
+}
+
+.btn-light{
+    background-color: white;
+    color: black;
+}

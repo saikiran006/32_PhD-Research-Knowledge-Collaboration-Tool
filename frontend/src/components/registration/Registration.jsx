@@ -46,10 +46,10 @@ const Registration = () => {
             <h1>Register</h1>
             <br />
             <form>
-                <div><input type="text" name="name" id="name" value={form.name} placeholder="name" onChange={handleForm} required /></div>
-                <div><input type="email" name="emailId" id="emailId" value={form.emailId} placeholder="emailId" onChange={handleForm} required /></div>
-                <div><input type="password" name="password" id="password" value={form.password} placeholder="password" onChange={handleForm} required /></div>
-                <div><input type="password" name="conf_password" id="conf_password" value={form.conf_password} placeholder="confirm password" onChange={handleForm} required /></div>
+                <div className="text-box"><input type="text" name="name" id="name" value={form.name} placeholder="name" onChange={handleForm} required /></div>
+                <div className="text-box"><input type="email" name="emailId" id="emailId" value={form.emailId} placeholder="emailId" onChange={handleForm} required /></div>
+                <div className="text-box"><input type="password" name="password" id="password" value={form.password} placeholder="password" onChange={handleForm} required /></div>
+                <div className="text-box"><input type="password" name="conf_password" id="conf_password" value={form.conf_password} placeholder="confirm password" onChange={handleForm} required /></div>
 
                 <div><button type="button" className="btn btn-primary" onClick={register}>Register</button> </div>
             </form>

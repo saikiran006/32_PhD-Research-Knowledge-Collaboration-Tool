@@ -29,9 +29,10 @@ const Login = () => {
             // sessionStorage.setItem("JWTToken",res.);
             // alert(res.data.message);
             console.log(res.data.token)
-            sessionStorage.setItem('userLoggedIn', true)
+            sessionStorage.setItem('userLoggedIn', form.emailId)
+            sessionStorage.setItem('token',res.data.token)
             navigate('/dashboard')
-        })
+        }).catch(err=>alert(err.response.data.message))
     }
     return (
         <>
@@ -39,9 +40,9 @@ const Login = () => {
             <h1>LOGIN</h1>
             <br />
             <form>
-                <div><input type="text" name="emailId" id="emailId" value={form.emailId} placeholder="emailId" onChange={handleForm} required /></div>
-                <div><input type="password" name="password" id="password" value={form.password} placeholder="password" onChange={handleForm} required /></div>
-                <div><button type="button" className="btn btn-primary" onClick={login}>Login</button> </div>
+                <div className="text-box"><input type="text" name="emailId" id="emailId" value={form.emailId} placeholder="emailId" onChange={handleForm} required /></div>
+                <div className="text-box"><input type="password" name="password" id="password" value={form.password} placeholder="password" onChange={handleForm} required="true" /></div>
+                <div className="text-box"><button type="button" className="btn btn-primary" onClick={login}>Login</button> </div>
             </form>
             <Link to="/">Register</Link>
         </>

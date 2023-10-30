@@ -1,26 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import './Dashboard.css'
-import SearchResult from "./SearchResult";
+import './Bookmarks.css'
+import SearchResult from '../dashboard/SearchResult';
 import axios from 'axios';
-import Bookmarks from '../bookmark/Bookmarks';
 
-const Dashboard = () => {
+const Bookmarks = () => {
     const [objs, setObjs] = useState([])
     const [searchInput, setSearchInput] = useState('');
 
+    useEffect(() => {
+        var emailId = sessionStorage.getItem("userLoggedIn")
+        console.log(emailId)
+        var baseURL = `http://localhost:8080/bookmark/get/${emailId}`;
+        axios.get(baseURL).then(res => {
+            console.log(res)
+            setObjs(res.data)
+        })
+
+    }, [])
     const handleSearch = async () => {
         setObjs('')
         console.log("hi")
-        console.log("searched:" + searchInput);
-        var baseURL = `http://localhost:8080/search/` + searchInput;
-        axios.get(baseURL, {
-            headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}`}
-        }).
-        then(response=>{
-            console.log(response)
-            setObjs(response.data.papers)
+        // console.log("searched:" + searchInput);
+        // var baseURL = `http://localhost:8080/search/` + searchInput;
+        // axios.get(baseURL).
+        // then(response=>{
+        //     console.log(response)
+        //     setObjs(response.data.papers)
 
-        }).catch(err=>console.log(err));
+        // }).catch(err=>console.log(err));
         // const response = await fetch(`http://localhost:8080/search/${searchInput}`, {
         //     method: 'GET'
         // // })
@@ -44,9 +51,9 @@ const Dashboard = () => {
     //                 'Content-type': 'application/json',
     //             }
     //         })
-        
+
     //         const jsonObj = await response.json();
- 
+
     //         console.log(jsonObj);
 
     //         if(response.ok){
@@ -62,26 +69,17 @@ const Dashboard = () => {
     // }, [])
     return (<>
         <main>
-             <form>
-             <input
-                type="text"
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-            />
-            <button onClick={handleSearch} type='button'>Search</button>
-            </form>
-
-                <div className="papers">
+            <div className="papers">
                 {Array.isArray(objs) ? (
                     objs.map((obj) => (
-                        <SearchResult key={obj._id} obj={obj} bookmarks={false}/>
+                        <SearchResult key={obj._id} obj={obj} bookmarks={true} />
                     ))
                 ) : (
-                    <p>No history available.</p>
+                    <p>No Bookmarks.</p>
                 )}
-                </div>
-        </main> 
+            </div>
+        </main>
     </>);
 };
 
-export default Dashboard;
+export default Bookmarks;

@@ -2,3 +2,7 @@ main{
     height: 80vh;
 }
 
+.papers{
+    max-height: 100vh;
+    /* max-width: 70%; */
+}
