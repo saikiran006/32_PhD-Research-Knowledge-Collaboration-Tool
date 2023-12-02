@@ -53,14 +53,11 @@ router.get("/get",withAuth, async (req, res) => {
     Comments.find({ emailId: user, categories: { $in: categoryArray } })
     .then(comments => {
         commentsList = comments
-      // If comments are found, you can retrieve their associated papers
       const paperIds = comments.map(comment => comment.paperId);
   
-      // Search for the associated papers using the retrieved IDs
       return Papers.find({ id: { $in: paperIds } });
     })
     .then(papers => {
-      // You now have the comments and associated papers
       return res.status(200).json({ commentsList, papers });
     })
     .catch(err => {

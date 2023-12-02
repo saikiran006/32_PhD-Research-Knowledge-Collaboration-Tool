@@ -7,7 +7,17 @@ import Bookmarks from '../bookmark/Bookmarks';
 const Dashboard = () => {
     const [objs, setObjs] = useState([])
     const [searchInput, setSearchInput] = useState('');
-
+    const handleSubmit = (e) => {
+        e.preventDefault(); 
+        handleSearch();
+      };
+      
+      const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault(); 
+          handleSearch(); 
+        }
+      };
     const handleSearch = async () => {
         setObjs('')
         console.log("hi")
@@ -21,55 +31,22 @@ const Dashboard = () => {
             setObjs(response.data.papers)
 
         }).catch(err=>console.log(err));
-        // const response = await fetch(`http://localhost:8080/search/${searchInput}`, {
-        //     method: 'GET'
-        // // })
-        // const jsonObj = await response.json();
-        // console.log(jsonObj)
-        // if(response.ok){
-        //     setObjs(jsonObj.papers)
-        // }
-        // else{
-        //     setObjs('')
-        // }
+        return false
+
 
     }
-
-    // useEffect(() => {
-    //     const fetchPapers = async () => {
-    //         const searchParam = 'graph';
-    //         const response = await fetch(`http://localhost:8080/search/${searchParam}`, {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-type': 'application/json',
-    //             }
-    //         })
-        
-    //         const jsonObj = await response.json();
- 
-    //         console.log(jsonObj);
-
-    //         if(response.ok){
-    //             setObjs(jsonObj.papers)
-    //             // console.log(objs)
-    //             // console.log(jsonObj)
-    //         }
-    //         else{
-    //             return 
-    //         }
-    //     }
-    //     fetchPapers()
-    // }, [])
     return (<>
         <main>
-             <form>
-             <input
-                type="text"
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-            />
-            <button onClick={handleSearch} type='button'>Search</button>
-            </form>
+        <form onSubmit={handleSubmit}>
+  <input
+    type="text"
+    value={searchInput}
+    onChange={(e) => setSearchInput(e.target.value)}
+    onKeyDown={handleKeyPress}
+  />
+  <button type='submit'>Search</button>
+</form>
+
 
                 <div className="papers">
                 {Array.isArray(objs) ? (

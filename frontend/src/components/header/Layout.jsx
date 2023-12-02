@@ -11,10 +11,10 @@ const Layout= ()=>{
     return (
       <>
         <header className="header">
-      <h3 className="nav-title">Title</h3>
+      <h3 className="nav-title">PhD Research Tool</h3>
       <ul className="nav-links">
         <li><a href="/dashboard">Home</a></li>
-        <li><a href="/bookmarks">Bookmarks</a></li>
+        <li><a href="/bookmarks">Library</a></li>
       </ul>
       <div className="profile-dropdown">
         <div className="profile-trigger" onClick={toggleProfileDropdown}>
