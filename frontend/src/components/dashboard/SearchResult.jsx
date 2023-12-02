@@ -1,6 +1,8 @@
 import React from "react"
 import './SearchResult.css'
 import axios from "axios";
+import MathJaxComponent from '../mathjax/MathJaxComponent';
+
 
 const SearchResult = ({ obj,bookmarks }) => {
 
@@ -59,7 +61,7 @@ const SearchResult = ({ obj,bookmarks }) => {
             <hr />
             <p><strong>Authors: </strong>{obj.authors}</p>
             <p><strong>DOI: </strong><a href={`https://www.doi.org/${obj.doi}`} target="_blank">{obj.doi}</a></p>
-            <p><strong>Abstract:</strong>{obj.abstract}</p>
+            <p><MathJaxComponent content={obj.abstract} /></p>
             <hr />
             <div className="comment-input">
                 <textarea name="comment" id="comment" cols="20" rows="2" placeholder="Add a comment..."
