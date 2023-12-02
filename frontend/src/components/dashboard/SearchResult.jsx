@@ -5,7 +5,7 @@ import axios from "axios";
 const SearchResult = ({ obj,bookmarks }) => {
 
     const [newComment, setNewComment] = React.useState("")
-    const [cardComments, setCardComments] = React.useState(["Comment1","Comment2"]);
+    const [cardComments, setCardComments] = React.useState([]);
     const addComment=()=>{
         if (newComment) {
           console.log({paperObj:obj})
@@ -29,7 +29,7 @@ const SearchResult = ({ obj,bookmarks }) => {
       axios.post("http://localhost:8080/bookmark/add",{
         'emailId':sessionStorage.getItem("userLoggedIn"),
         'paperId':obj.id
-      }).then(res=>{console.log(res)})
+      }).then(res=>{alert("page Bookmarked!")})
       .catch(err=>{console.log(err)})
       console.log("Add Bookmark");
     }
@@ -58,7 +58,7 @@ const SearchResult = ({ obj,bookmarks }) => {
             </div>
             <hr />
             <p><strong>Authors: </strong>{obj.authors}</p>
-            <p><strong>DOI: </strong>{obj.doi}</p>
+            <p><strong>DOI: </strong><a href={`https://www.doi.org/${obj.doi}`} target="_blank">{obj.doi}</a></p>
             <p><strong>Abstract:</strong>{obj.abstract}</p>
             <hr />
             <div className="comment-input">

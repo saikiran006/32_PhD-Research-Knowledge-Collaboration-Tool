@@ -37,7 +37,7 @@ const Login = () => {
     return (
         <>
             <br />
-            <h1>LOGIN</h1>
+            <h1>Login</h1>
             <br />
             <form>
                 <div className="text-box"><input type="text" name="emailId" id="emailId" value={form.emailId} placeholder="emailId" onChange={handleForm} required /></div>
