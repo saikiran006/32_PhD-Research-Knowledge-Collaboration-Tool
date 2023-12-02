@@ -1,60 +1,110 @@
+/* Apply styles to each search result card */
 .paper-detail {
-    width: 30%;
-    overflow-y: auto;
-    /* Use 'auto' to add a scroll bar when needed */
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin: 10px;
-    padding: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-height: 30%;
-    float: left;
+  width: calc(33.33% - 20px); /* Set a fixed width for each card with margin */
+  height: 600px;
+  overflow-y: hidden; /* Hide vertical scroll */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 30%;
+  float: left;
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+  transition: transform 0.3s ease;
+}
+.paper-detail:hover {
+  transform: scale(1.05); /* Increase scale on hover */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Add box shadow on hover */
+  background-color: #A8A196;
+  color: white
 }
 
+.bookmark_image {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+}
+/* Add styles for the title parent section */
+.title-parent {
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px; /* Add margin at the bottom to separate title from other content */
+}
+
+/* Add styles for the title */
+h6 {
+  font-size: 18px; /* Set a fixed font size for the title */
+  margin: 0; /* Remove default margin for the title */
+}
+
+/* Add styles for the author-doi container */
+.author-doi-container {
+  height: 70px; /* Set a fixed height for the author-doi container */
+  overflow-y: auto;
+}
+.title {
+  height: 70px; /* Set a fixed height for the author-doi container */
+  overflow-y: auto;
+}
+
+/* Add styles for the authors and DOI */
+.authors,
+.doi {
+  font-size: 14px; /* Set a fixed font size for authors and DOI */
+  margin: 0; /* Remove default margin for authors and DOI */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis (...) for overflowing text */
+}
+
+/* Add styles for the bookmark button */
+.child-btn {
+  height: 60px;
+  margin-left: auto;
+}
+
+/* Add styles for the comment input section */
 .comment-input {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    /* Vertically center the elements */
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-top: 10px;
 }
 
 textarea {
-    flex: 1;
-    /* Allow the textarea to grow and fill available space */
-    margin-right: 10px;
-    /* Add some spacing between the textarea and button */
+  flex: 1;
+  margin-right: 10px;
+  box-sizing: border-box;
 }
 
-.single-comment{
-    display: block;
-    text-align: left;
-    border: 1px solid;
+/* Add styles for the single comment section */
+.single-comment {
+  display: block;
+  text-align: left;
+  border: 1px solid;
+  margin: 5px 0;
 }
 
-.title-parent{
-    display: flex;
-    width: 100%;
+/* Add styles for the dark and light buttons */
+/* .btn-dark {
+  background-color: black;
+  color: white;
 }
 
-.child-btn{
-    height: 60px;
+.btn-light {
+  background-color: white;
+  color: black;
+} */
+
+/* Add styles for the abstract container */
+.abstract-container {
+  /* height: 400px; Set a fixed height for the abstract content */
+  overflow-y: scroll; /* Enable vertical scroll if the content overflows */
+  margin-bottom: 10px; /* Add margin at the bottom to separate abstract and comments */
+  text-align: justify;
 }
 
-.title-btn{
-    background-color: rgb(230, 84, 84);
-    margin-right: 5px;
-}
-
-.title-btn:hover{
-    background-color: rgb(300, 140, 140);
-}
-
-.btn-dark{
-    background-color: black;
-    color: white;
-}
-
-.btn-light{
-    background-color: white;
-    color: black;
+/* Remove default margin for the abstract paragraph */
+.abstract {
+  margin: 0; /* Remove default margin for the abstract paragraph */
 }

@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const withAuth = require("../middleware/authMiddleware");
 const usersBookmark = require("../models/usersBookmark");
 const papers = require("../models/paperModel");
-
+const Comments = require("../models/commentsModel")
 router.post("/add", async (req, res) => {
 
   const {emailId, paperId } = req.body;
@@ -37,28 +37,70 @@ router.post("/add", async (req, res) => {
 });
 
 router.get("/get/:emailId", async (req, res) => {
-  console.log("email:",req.params.emailId);
+  // console.log("email:",req.params.emailId);
   usersBookmark
     .findOne({ emailId: req.params.emailId })
     .then((foundUser) => {
-      console.log(foundUser);
+      // console.log(foundUser);
       if (foundUser) {
-        console.log("in if");
+        // console.log("in if");
         return papers.find({ id: { $in: foundUser.paperId } });
       } else {
         return [];
       }
     })
     .then((papersArray) => {
-      console.log("in return ");
-      console.log(papersArray);
+      // console.log("in return ");
+      // console.log(papersArray);
       res.status(200).json(papersArray);
     })
     .catch((error) => {
-      console.error(error);
+      // console.error(error);
       res.status(500).json({ error: "An error occurred" });
     });
 });
+
+router.get("/get/:emailId/:paperId", async (req, res) => {
+  const emailId = req.params.emailId;
+  const paperId = req.params.paperId;
+  console.log("get bookmark called:")
+  // console.log(emailId);
+  // console.log(paperId);
+  try {
+    // Find user's bookmarks
+    const foundUser = await usersBookmark.findOne({ emailId });
+
+    if (foundUser) {
+      // Check if the paperId is in the user's bookmarks
+      if (foundUser.paperId.includes(paperId)) {
+        // If paperId is found, fetch paper details
+        const paper = await papers.findOne({ id: paperId });
+        // console.log(paper);
+        // Fetch comments for the specific paper
+        var comments = await Comments.find({ paperId, emailId });
+        // console.log(comments);
+        const ans = [];
+        for (const commentObject of comments) {
+          ans.push(commentObject.comment);
+        } 
+        console.log(ans);
+        // if(comments == null) comments = []
+        // Return both paper and comments
+        res.status(200).json({ paper, comments: ans });
+      } else {
+        // If paperId is not found in user's bookmarks, return an empty array
+        res.status(200).json({ paper: null, comments: [] });
+      }
+    } else {
+      // If user is not found, return an empty array
+      res.status(200).json({ paper: null, comments: [] });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+});
+
 
 router.post("/delete", async (req, res) => {
   console.log("delete api called!!");

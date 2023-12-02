@@ -34,3 +34,6 @@ app.use('/comment', commentsRoutes)
 const bookmarksRoutes = require('./routes/bookmarks')
 app.use('/bookmark', bookmarksRoutes)
 app.listen(8080, () =>console.log("server started"))
+
+const nodes = require('./routes/similar_nodes')
+app.use('/similar_nodes', nodes)

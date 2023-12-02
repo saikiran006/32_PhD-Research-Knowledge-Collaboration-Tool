@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom'
-// import './Register.css'
+import './Registration.css'
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
@@ -40,21 +40,32 @@ const Registration = () => {
     }
 
     return (
-        <>
-            <br />
+        <div className="register-body">
+            <h1>Research Paper Collaboration Tool</h1>
+            <div className="register-container">
+                
+                <div className="image-container">
+                    <img id="register-image" src="signup.svg" alt="te" />
+                </div>
+                <div className="form-container">
+                    <div className="form-1">
+                        <h1>Register</h1>
+                        <form>
+                            <div className="text-box"><input type="text" name="name" id="name" value={form.name} placeholder="Name" onChange={handleForm} required /></div>
+                            <div className="text-box"><input type="email" name="emailId" id="emailId" value={form.emailId} placeholder="Email Address" onChange={handleForm} required /></div>
+                            <div className="text-box"><input type="password" name="password" id="password" value={form.password} placeholder="Password" onChange={handleForm} required /></div>
+                            <div className="text-box"><input type="password" name="conf_password" id="conf_password" value={form.conf_password} placeholder="Confirm Password" onChange={handleForm} required /></div>
 
-            <h1>Register</h1>
-            <br />
-            <form>
-                <div className="text-box"><input type="text" name="name" id="name" value={form.name} placeholder="name" onChange={handleForm} required /></div>
-                <div className="text-box"><input type="email" name="emailId" id="emailId" value={form.emailId} placeholder="emailId" onChange={handleForm} required /></div>
-                <div className="text-box"><input type="password" name="password" id="password" value={form.password} placeholder="password" onChange={handleForm} required /></div>
-                <div className="text-box"><input type="password" name="conf_password" id="conf_password" value={form.conf_password} placeholder="confirm password" onChange={handleForm} required /></div>
+                            <button type="button" className="btn btn-primary" onClick={register}>Register</button>
+                        </form>
+                        <button type="button" className="btn btn-primary">
+                            <Link to="/login" style={{color: "white", textDecoration: "none"}}>Login</Link>
+                        </button>
+                    </div>
 
-                <div><button type="button" className="btn btn-primary" onClick={register}>Register</button> </div>
-            </form>
-            <Link to="/login">login</Link>
-        </>
+                </div>
+            </div>
+        </div>
     );
 };
 export default Registration;

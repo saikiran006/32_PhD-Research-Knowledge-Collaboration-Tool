@@ -51,7 +51,11 @@ router.post('/',async (req,res)=>{
         password:req.body.password,
     })
     try{
-        const newUser = await user.save();
+        const users = await User.findOne({emailId:req.params.emailId});
+        if(users){
+            req.status(401).json({msg:"User already exists"});
+        }
+        const newUser = await user.save();  
         res.status(201).json({msg:"User Created"})
     }
     catch(err){

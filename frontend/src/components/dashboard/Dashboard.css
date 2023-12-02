@@ -4,5 +4,10 @@ main{
 
 .papers{
     max-height: 100vh;
-    /* max-width: 70%; */
+}
+
+#search_input {
+    margin-top: 10px;
+    width: 40%;
+    border-radius: 50px;
 }

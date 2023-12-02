@@ -9,6 +9,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import Home from './components/home/Home';
 import Layout from './components/header/Layout';
 import BookMarks from './components/bookmark/Bookmarks';
+import DataGraph from './components/data-graph/DataGraph';
 
 function App() {
   return (<div className='app'>
@@ -18,10 +19,12 @@ function App() {
           <Route path='/' element={<Registration />} />
           <Route path='/login' element={<Login />} />
           <Route element={<Layout />}>
-              <Route path='/dashboard' element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
+            <Route path='/dashboard' element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
             <Route path='/bookmarks' element={<ProtectedRoute> <BookMarks /> </ProtectedRoute>} />
-          </Route>     
-          </Routes>
+
+          </Route>
+
+        </Routes>
       </div>
     </Router>
   </div>
