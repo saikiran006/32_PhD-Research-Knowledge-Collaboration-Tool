@@ -4,30 +4,33 @@ import axios from "axios";
 
 const SearchResult = ({ obj,bookmarks,parentCallback }) => {
 
-    const [newComment, setNewComment] = React.useState("")
-    const [cardComments, setCardComments] = React.useState([]);
-    const [isBookmarked, setIsBookmarked] = useState(false);
-    const [updatedComment, setUpdatedComment] = useState('');
-
-    useEffect(() => {
-      var comments = []
-      var emailId = sessionStorage.getItem('userLoggedIn')
-      // console.log(emailId)
-      // console.log(obj.id);
-      var baseURL = `http://localhost:8080/bookmark/get/${emailId}/${obj.id}`;
-      axios.get(baseURL,  { givenId: obj.id }).then(res => {
-          console.log(res.data);
-          if(res.data.comments.length != 0){
-            var ans = res.data.comments;
-            console.log(ans);
-            for (const comment of ans) {
-              setCardComments(prevComments => [...prevComments, comment]);
-            }
+  const [newComment, setNewComment] = React.useState("")
+  const [cardComments, setCardComments] = React.useState([]);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [updatedComments, setUpdatedComments] = useState(cardComments.map(() => ''));
+  const [focusedIndex, setFocusedIndex] = useState(null);
+  const [prevComments, setPrevComments] = React.useState([]);
+    
+  useEffect(() => {
+    var comments = []
+    var emailId = sessionStorage.getItem('userLoggedIn')
+    // console.log(emailId)
+    // console.log(obj.id);
+    var baseURL = `http://localhost:8080/bookmark/get/${emailId}/${obj.id}`;
+    axios.get(baseURL,  { givenId: obj.id }).then(res => {
+        console.log(res.data);
+        if(res.data.comments.length != 0){
+          var ans = res.data.comments;
+          console.log(ans);
+          for (const comment of ans) {
+            setCardComments(prev => [...prev, comment]);
+            setPrevComments(prev => [...prev, comment])
           }
-        
-         
-      })
-
+          console.log(cardComments);
+        }
+      
+       
+    })
   }, [])
 
     const addComment=()=>{
@@ -78,7 +81,6 @@ const SearchResult = ({ obj,bookmarks,parentCallback }) => {
     }
 
     const handleDeleteComment = async (index) => {
-      // Get the comment to be deleted
     const deletedComment = cardComments[index];
     var emailId = sessionStorage.getItem('userLoggedIn')
 
@@ -111,43 +113,71 @@ const SearchResult = ({ obj,bookmarks,parentCallback }) => {
     }
     };
 
-    const handleUpdateComment = async (index) => {
-      const emailId = sessionStorage.getItem('userLoggedIn');
-      const commentText = cardComments[index];
-  
-      try {
-        const response = await fetch('http://localhost:8080/comment/update', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            emailId: emailId,
-            commentText: commentText,
-            updatedCommentText: updatedComment,
-          }),
-        });
-  
-        if (response.ok) {
-          console.log("updated");
-          // Optionally, you can update the local state with the updated comment
-          const updatedComments = [...cardComments];
-          updatedComments[index] = updatedComment;
-          setCardComments(updatedComments);
-          // Clear the input field after update
-          setUpdatedComment('');
-        } else {
-          console.error('Failed to update comment:', response.statusText);
+    const handleFocus = (index) => {
+      setFocusedIndex(index);
+      // Optionally, set the input value to the corresponding comment
+      setUpdatedComments((prev) => prev.map((val, i) => (i === index ? cardComments[i] : val)));
+    };
+
+    const handleInputChange = (index, value) => {
+      const newUpdatedComments = [...cardComments];
+      newUpdatedComments[index] = value;
+      setCardComments(newUpdatedComments);
+      // console.log(cardComments[index]);
+      // console.log(prevComments[index])
+      // console.log(value)
+      // cardComments[index] = value;
+
+    };
+
+    const toggleTextField = async (i) => {
+      // console.log(i);
+      const btn = document.getElementById("btn" +obj.id+ i.toString());
+      // console.log(btn);
+      btn.disabled = !btn.disabled;
+      console.log(cardComments[i]);
+
+      console.log(prevComments[i]);
+      if (btn.disabled) {
+        try {
+          const emailId = sessionStorage.getItem('userLoggedIn');
+          const commentText = prevComments[i];
+          console.log(cardComments[i]);
+
+          console.log(commentText);
+    
+          const response = await fetch('http://localhost:8080/comment/update', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              emailId: emailId,
+              commentText: commentText,
+              updatedCommentText: cardComments[i],
+            }),
+          });
+    
+          if (response.ok) {
+            // Clear the input field after update
+            const newUpdatedComments = [...updatedComments];
+            newUpdatedComments[i] = '';
+            setUpdatedComments(newUpdatedComments);
+            setPrevComments(cardComments);
+          } else {
+            console.error('Failed to update comment:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error:', error.message);
         }
-      } catch (error) {
-        console.error('Error:', error.message);
       }
     };
+    
 
     return (
       <div className="paper-detail">
         <div className="title-parent">
-          <h6 class="title">Title: {obj.title}</h6> &nbsp;
+        <h6 class="title">Title: {obj.title.replaceAll("\\n","")}</h6> &nbsp;
           <div class="image-container">
         <img  src="/icons/network1.png" className="graph_image" alt="graph" onClick={showGraph} />
 
@@ -164,9 +194,8 @@ const SearchResult = ({ obj,bookmarks,parentCallback }) => {
         <hr />
         <div className="author-doi-container">
           <p className="authors">
-            <strong>Authors: </strong>
-            {obj.authors}
-          </p>
+          <strong>Authors: </strong>
+            {obj.authors.replaceAll("\\n","")}          </p>
           <p className="doi">
             <strong>DOI: </strong>
             <a href={`https://www.doi.org/${obj.doi}`} target="_blank">
@@ -175,30 +204,38 @@ const SearchResult = ({ obj,bookmarks,parentCallback }) => {
           </p>
         </div>
         <div className="abstract-container"  style={bookmarks ? { height: '300px' } : { height: '400px' }}>
-          <p className="abstract">
-            <strong>Abstract:</strong>
-            {obj.abstract}
-          </p>
+        <p className="abstract">
+          <strong>Abstract:</strong>
+          {obj.abstract.replaceAll("\\n","")}
+                  </p>
           <hr />
           <div className="comments">
-            {/* <p>Comments :</p> */}
+            <p style={{marginBottom: '6px', fontWeight: '500', fontSize: '16px'}}>Comments :</p>
             {cardComments.map((comment, index) => (
-              <p className="single-comment" key={index}>
-                <li>{comment}</li>
-                <img
-                  src="delete.png" // Replace with the path to your delete icon image
-                  alt="Delete"
-                  onClick={() => handleDeleteComment(index)}
-                  className="delete-icon"
-                />      
-                 <input
-                  type="text"
-                  value={updatedComment}
-                  onChange={(e) => setUpdatedComment(e.target.value)}
-                  placeholder="New Comment"
-                />
-                <button onClick={() => handleUpdateComment(index)}>Update</button>        
-          </p>
+              <div className="comment-container" key={index}>
+                {/* <div className="comment-text"> */}
+                  <textarea 
+                    className="comment-text" 
+                    type="text" 
+                    value={cardComments[index]} 
+                    id={"btn"+obj.id+index.toString()} 
+                    onChange={(e) => handleInputChange(index, e.target.value)} disabled
+                  />
+                {/* </div> */}
+                <div className="edit-btns">
+                  <img 
+                    src="../../../icons/edit.png" 
+                    alt="Modify" 
+                    onClick={() => toggleTextField(index)}
+                  />
+                  <img
+                    src="../../../icons/delete.png" // Replace with the path to your delete icon image
+                    alt="Delete"
+                    onClick={() => handleDeleteComment(index)}
+                    className="delete-icon"
+                  />   
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -208,16 +245,14 @@ const SearchResult = ({ obj,bookmarks,parentCallback }) => {
         <div className="comment-input">
           <textarea
             name="comment"
-            id="comment"
+            className="comment"
             cols="20"
             rows="2"
             placeholder="Add a comment..."
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
           ></textarea>
-          <button type="button" onClick={addComment}>
-            Add
-          </button>
+          <button type="button" className="comment-btn" onClick={addComment}>Add</button>
         </div>
       </div>
     );

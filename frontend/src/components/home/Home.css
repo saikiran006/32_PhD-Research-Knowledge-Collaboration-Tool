@@ -1,5 +1,5 @@
 .home-div {
-    height: calc(100vh - 57px);
+    height: calc(100vh - 56px);
     background-image: url("../../../public/home1.jpg");
     background-size: cover; /* Cover the entire container */
     background-position: center; /* Center the image */
@@ -30,18 +30,18 @@
 }
 
 #search-input {
-    width: 95%;
+    width: 88%;
     padding: 5px;
     margin: 0;
     background: transparent;
     border: none;
     outline: none;
     text-align: center;
-    color: white; /* Set text color as needed */
-    font-weight: 200;
-    font-size: 18px;
+    color: rgb(39, 39, 39); /* Set text color as needed */
+    font-weight: 300;
+    font-size: 20px;
     /* caret-color: #fff;  */
 }
 #search-input::placeholder {
-    color: white;
+    color: rgb(31, 31, 31);
 }
