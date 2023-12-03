@@ -23,11 +23,13 @@ router.post('/login', async (req, res) => {
     // const user = { id: 1, username: 'example' };
     try{
         const user = await User.findOne({emailId:jsonData.emailId});
+        if(user==null){
+            return res.status(404).json({message:'User Not Found'});
+        }
         const isValid = await bcrypt.compare(jsonData.password,user.password);
         if(isValid){
             const token = jwt.sign({ user }, secretKey, { expiresIn: '1h' });
-            res.cookie('token', token, { httpOnly: true })
-            .sendStatus(200);
+            res.status(200).json({ token: token });
             // res.json({token:token}).status(200)
         }
         else{
@@ -49,7 +51,11 @@ router.post('/',async (req,res)=>{
         password:req.body.password,
     })
     try{
-        const newUser = await user.save();
+        const users = await User.findOne({emailId:req.params.emailId});
+        if(users){
+            req.status(401).json({msg:"User already exists"});
+        }
+        const newUser = await user.save();  
         res.status(201).json({msg:"User Created"})
     }
     catch(err){

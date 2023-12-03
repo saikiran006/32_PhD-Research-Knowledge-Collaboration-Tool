@@ -12,6 +12,7 @@
     "react": "^18.2.0",
     "react-datepicker": "^4.18.0",
     "react-dom": "^18.2.0",
+    "react-graph-vis": "^1.0.7",
     "react-router-dom": "^6.16.0",
     "react-routing": "^0.0.7",
     "react-scripts": "5.0.1",
