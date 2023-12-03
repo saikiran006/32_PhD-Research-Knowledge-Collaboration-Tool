@@ -12,7 +12,11 @@ const DataGraph = ({ currentItem, closePopup }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/similar_nodes/${currentItem.title}`, {
+        console.log(typeof(currentItem.title))
+        var text = currentItem.title.replaceAll("\\n","");
+        // console.log(text.)
+        // console.log(currentItem.title.replaceAll("\n"," "))
+        const response = await axios.get(`http://localhost:8080/similar_nodes/${text}`, {
           headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         });
         const relatedItems = response.data;
@@ -34,7 +38,7 @@ const DataGraph = ({ currentItem, closePopup }) => {
           }
         };
 
-        nodes.push({ id: nodeId, label: currentItem.id, title: currentItem.title,shape:"circle"});
+        nodes.push({ id: nodeId, label: currentItem.id, title: currentItem.title,authors:currentItem.authors,doi:currentItem.doi,shape:"circle"});
         nodeId++;
 
         createNodesAndEdges(1, relatedItems.nodes);
@@ -90,13 +94,13 @@ const DataGraph = ({ currentItem, closePopup }) => {
           console.log({node:node});
           tooltip.innerText = node.title;
           var doiUrl = `https://www.doi.org/${node.doi}`
-          tooltip.innerHTML = `<p><strong>Title: </strong>${node.title}</p>
-
-          <p><strong>Authors: </strong>${node.authors}</p>
-          <strong>DOI: </strong>
-          <a href=${doiUrl} target="_blank">
-            ${node.doi}
-          </a>`;
+          tooltip.innerHTML = `
+          <div class="tooltip-content">
+            <p class="tooltip-title"><strong id="strong-title">Title:</strong> ${node.title.replaceAll("\\n","")}</p>
+            <p class="tooltip-authors"><strong>Authors:</strong> ${node.authors.replaceAll("\\n","")}</p>
+            <p class="tooltip-doi"><strong>DOI:</strong> <a href="https://www.doi.org/${node.doi}" target="_blank">${node.doi}</a></p>
+          </div>`;
+        tooltip.style.display = 'block';
           // tooltip.style.top = `${event.event.clientY}px`;
           // tooltip.style.left = `${event.event.clientX}px`;
         }
@@ -129,22 +133,10 @@ const DataGraph = ({ currentItem, closePopup }) => {
       const node = graph.nodes.find((n) => n.id === nodeId);
   
       if (node && node.title) {
-        // tooltip.innerText = node.title;
         tooltip.innerHTML = `
-        <p><strong>Authors: </strong>${node.authors}</p>`;
+        <p><strong>Authors: </strong>${node.authors.replaceAll("\\n","")}</p>`;
 
         tooltip.style.display = "block";
-  
-        // Get the positions of the tooltip and popup container
-        // const tooltipRect = tooltip.getBoundingClientRect();
-        // const popupRect = popupContainer.getBoundingClientRect();
-  
-        // // Adjust tooltip position to stay within the popup container
-        // const top = Math.min(event.event.clientY, popupRect.bottom - tooltipRect.height);
-        // const left = Math.min(event.event.clientX, popupRect.right - tooltipRect.width);
-  
-        // tooltip.style.top = `${top}px`;
-        // tooltip.style.left = `${left}px`;
       }
     } else {
       tooltip.style.display = "none";
@@ -172,7 +164,6 @@ const DataGraph = ({ currentItem, closePopup }) => {
         </div>
       </div>
       {/* Tooltip */}
-
       <button onClick={handleTooltipClose} className='close-button'>X</button>
     </div>
   );
