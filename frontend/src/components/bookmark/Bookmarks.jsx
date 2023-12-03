@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './Bookmarks.css'
 import SearchResult from '../dashboard/SearchResult';
 import axios from 'axios';
+import DataGraph from '../data-graph/DataGraph';
 
 const Bookmarks = () => {
     const [objs, setObjs] = useState([])
     const [searchInput, setSearchInput] = useState('');
+    const [clickedObj, setClickedObj] = useState({})
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         var emailId = sessionStorage.getItem("userLoggedIn")
@@ -20,64 +23,26 @@ const Bookmarks = () => {
     const handleSearch = async () => {
         setObjs('')
         console.log("hi")
-        // console.log("searched:" + searchInput);
-        // var baseURL = `http://localhost:8080/search/` + searchInput;
-        // axios.get(baseURL).
-        // then(response=>{
-        //     console.log(response)
-        //     setObjs(response.data.papers)
-
-        // }).catch(err=>console.log(err));
-        // const response = await fetch(`http://localhost:8080/search/${searchInput}`, {
-        //     method: 'GET'
-        // // })
-        // const jsonObj = await response.json();
-        // console.log(jsonObj)
-        // if(response.ok){
-        //     setObjs(jsonObj.papers)
-        // }
-        // else{
-        //     setObjs('')
-        // }
-
     }
 
-    // useEffect(() => {
-    //     const fetchPapers = async () => {
-    //         const searchParam = 'graph';
-    //         const response = await fetch(`http://localhost:8080/search/${searchParam}`, {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-type': 'application/json',
-    //             }
-    //         })
-
-    //         const jsonObj = await response.json();
-
-    //         console.log(jsonObj);
-
-    //         if(response.ok){
-    //             setObjs(jsonObj.papers)
-    //             // console.log(objs)
-    //             // console.log(jsonObj)
-    //         }
-    //         else{
-    //             return 
-    //         }
-    //     }
-    //     fetchPapers()
-    // }, [])
+    const handleCallback = (childData) => {
+        console.log({data:childData})
+        setClickedObj(childData);
+        setOpen(true)
+    };
     return (<>
         <main>
             <div className="papers">
                 {Array.isArray(objs) ? (
                     objs.map((obj) => (
-                        <SearchResult key={obj._id} obj={obj} bookmarks={true} />
+                        <SearchResult key={obj.id} obj={obj} bookmarks={true} parentCallback={handleCallback}/>
                     ))
                 ) : (
                     <p>No Bookmarks.</p>
                 )}
             </div>
+            {open ? <DataGraph currentItem = {clickedObj} closePopup={() => setOpen(false)} /> : null}
+
         </main>
     </>);
 };

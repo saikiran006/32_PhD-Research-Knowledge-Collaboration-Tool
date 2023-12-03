@@ -56,11 +56,11 @@ const Registration = () => {
                             <div className="text-box"><input type="password" name="password" id="password" value={form.password} placeholder="Password" onChange={handleForm} required /></div>
                             <div className="text-box"><input type="password" name="conf_password" id="conf_password" value={form.conf_password} placeholder="Confirm Password" onChange={handleForm} required /></div>
 
-                            <button type="button" className="btn btn-primary" onClick={register}>Register</button>
+                            <button type="button" className="btn2" onClick={register}>Register</button>
                         </form>
-                        <button type="button" className="btn btn-primary">
-                            <Link to="/login" style={{color: "white", textDecoration: "none"}}>Login</Link>
-                        </button>
+                        <Link to="/login" style={{color: "white", textDecoration: "none"}}>
+                            <button type="button" className="btn2">Login</button>
+                        </Link>
                     </div>
 
                 </div>

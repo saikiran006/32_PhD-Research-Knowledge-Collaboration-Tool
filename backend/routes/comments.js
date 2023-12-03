@@ -65,5 +65,60 @@ router.get("/get",withAuth, async (req, res) => {
     });
     
   });
+
+  router.delete("/delete", async (req, res) => {
+    try {
+      // Extract data from the request body
+      const { emailId, commentText } = req.body;
+      console.log(emailId);
+      console.log(commentText);
+      // Validate that both emailId and commentText are provided
+      if (!emailId || !commentText) {
+        return res.status(400).json({ error: "Both emailId and commentText are required." });
+      }
   
+      // Find and delete the comment based on emailId and commentText
+      const result = await Comments.deleteOne({ emailId, comment: commentText });
+  
+      // Check if the comment was found and deleted
+      if (result.deletedCount > 0) {
+        return res.status(200).json({ message: "Comment deleted successfully." });
+      } else {
+        return res.status(404).json({ error: "Comment not found." });
+      }
+    } 
+    catch (error) {
+      console.error("Error:", error.message);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
+  
+  router.put("/update", async (req, res) => {
+    try {
+      console.log("update api called");
+      // Extract data from the request body
+      const { emailId, commentText, updatedCommentText } = req.body;
+      console.log(emailId);
+      console.log(commentText);
+      console.log(updatedCommentText);
+      
+      // Validate that both emailId and commentText are provided
+      if (!emailId || !commentText || !updatedCommentText) {
+        return res.status(400).json({ error: "emailId, commentText, and updatedCommentText are required." });
+      }
+  
+      // Find and update the comment based on emailId and commentText
+      const result = await Comments.updateOne({ emailId, comment: commentText }, { comment: updatedCommentText });
+      console.log("hi")
+      // Check if the comment was found and updated
+    
+
+      return res.status(200).json({ message: "Comment updated successfully." });
+   
+      
+    } catch (error) {
+      console.error("Error:", error.message);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
 module.exports = router;

@@ -1,29 +1,29 @@
 
-#register-image {
+#login-image {
     width: 85%;
 }
-.register-body {
+.login-body {
     height: 100vh;
 }
-.register-container {
+.login-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    /* height: 100vh; */
 }
-.register-body {
-    background-image: url("../../../public/signup-bg.svg");
+.login-body {
+    background-image: url("../../../public/login-bg2.svg");
 }
 
-.register-body > h1 {
+.login-body > h1 {
     font-size: 45px;
 }
   
 .image-container {
-    flex: 0.8;
+    flex: 0.9;
 }
   
 .form-container {
-    /* height: 100vh; */
     flex: 1;
     display: flex;
     justify-content: center; 
@@ -31,11 +31,11 @@
 }
 .form-1 {
     text-align:  center;
-    width: 60%;
+    width: 50%;
     background-color: rgb(255, 255, 255);
     border-radius: 15px;
     box-shadow: 0px 0px 15px rgb(128, 128, 128);
-    padding: 25px;
+    padding: 25px 0;
 }
 .form-1 h1 {
     padding: 10px 0;
@@ -51,8 +51,8 @@
 }
 
   /* Additional styling for the button */
-.btn2 {
-    background-color: rgb(241, 176, 34);
+.btn3 {
+    background-color: rgb(25, 107, 66);
     color: #fff;
     padding: 12px 20px;
     border: none;
@@ -61,6 +61,7 @@
     margin-bottom: 10px;
     border-radius: 12px;
 }
-.btn2:hover {
-    background-color: rgb(238, 186, 73);
+
+.btn3:hover {   
+    background-color: rgb(47, 117, 82);
 }
