@@ -3,22 +3,21 @@ import './Home.css'
 import { useNavigate } from 'react-router-dom';
 import TextCycler from './TextCycler'
 
-const Home=()=>{
+const Home = () => {
   const [searchInput, setSearchInput] = useState('');
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    // Redirect to the dashboard with the search results
     if (searchInput) {
-      sessionStorage.setItem("searchKey",searchInput)
+      sessionStorage.setItem("searchKey", searchInput)
       navigate('/dashboard');
     }
   };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); 
-      handleSearch(); 
+      e.preventDefault();
+      handleSearch();
     }
   };
 

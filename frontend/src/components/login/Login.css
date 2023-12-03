@@ -4,12 +4,12 @@
 }
 .login-body {
     height: 100vh;
+    padding-top: 50px;
 }
 .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 100vh; */
 }
 .login-body {
     background-image: url("../../../public/login-bg2.svg");
@@ -27,7 +27,6 @@
     flex: 1;
     display: flex;
     justify-content: center; 
-    /* background-image: url("frontend/public/signup-bg.svg"); */
 }
 .form-1 {
     text-align:  center;
@@ -39,7 +38,6 @@
 }
 .form-1 h1 {
     padding: 10px 0;
-    /* margin: 25px 0; */
 }
 .text-box input {
     width: 70%;
@@ -50,7 +48,6 @@
     border-radius: 10px;
 }
 
-  /* Additional styling for the button */
 .btn3 {
     background-color: rgb(25, 107, 66);
     color: #fff;

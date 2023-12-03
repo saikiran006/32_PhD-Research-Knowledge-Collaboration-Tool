@@ -18,21 +18,18 @@ const Registration = () => {
         let name = e.target.name;
         let val = e.target.value;
         setformdata({ ...form, [name]: val })
-        console.log(form);
     }
 
     const register = () => {
-        console.log("register called!")
         if (form.password !== form.conf_password) {
             alert("Passwords does not match");
         }
         else {
             axios.post(baseurl, {
                 name: form.name,
-                emailId:form.emailId,
+                emailId: form.emailId,
                 password: form.password
             }).then(response => {
-                console.log(response)
                 navigate('/login');
             })
                 .catch(err => alert(err.response.data.message));
@@ -43,7 +40,7 @@ const Registration = () => {
         <div className="register-body">
             <h1>Research Paper Collaboration Tool</h1>
             <div className="register-container">
-                
+
                 <div className="image-container">
                     <img id="register-image" src="signup.svg" alt="te" />
                 </div>
@@ -58,7 +55,7 @@ const Registration = () => {
 
                             <button type="button" className="btn2" onClick={register}>Register</button>
                         </form>
-                        <Link to="/login" style={{color: "white", textDecoration: "none"}}>
+                        <Link to="/login" style={{ color: "white", textDecoration: "none" }}>
                             <button type="button" className="btn2">Login</button>
                         </Link>
                     </div>

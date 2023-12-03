@@ -8,6 +8,15 @@
   padding: 10px 35px;
 }
 
+.brand {
+  display: flex;
+  flex-direction: row;
+}
+.logo {
+  height: 28px;
+  width: 28px;
+  margin-right: 10px;
+}
 .nav-title {
   font-size: 20px;
   font-weight: 300;

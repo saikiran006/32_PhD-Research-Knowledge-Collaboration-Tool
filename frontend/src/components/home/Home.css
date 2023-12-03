@@ -3,7 +3,7 @@
     background-image: url("../../../public/home1.jpg");
     background-size: cover; /* Cover the entire container */
     background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
+    background-repeat: no-repeat; 
 }
 
 .text-div {
@@ -23,7 +23,7 @@
     left: 50%;
     transform: translate(-50%, -50%); 
     position: relative;
-    background: rgba(255, 255, 255, 0.445); /* Adjust the alpha (4th parameter) for transparency */
+    background: rgba(255, 255, 255, 0.445); 
     padding: 10px;
     backdrop-filter: blur(15px);
     border-radius: 50px;
@@ -37,10 +37,9 @@
     border: none;
     outline: none;
     text-align: center;
-    color: rgb(39, 39, 39); /* Set text color as needed */
+    color: rgb(39, 39, 39);
     font-weight: 300;
     font-size: 20px;
-    /* caret-color: #fff;  */
 }
 #search-input::placeholder {
     color: rgb(31, 31, 31);

@@ -1,8 +1,7 @@
-/* Apply styles to each search result card */
 .paper-detail {
-  width: calc(33.33% - 20px); /* Set a fixed width for each card with margin */
+  width: calc(33.33% - 20px);
   height: 600px;
-  overflow-y: hidden; /* Hide vertical scroll */
+  overflow-y: hidden;
   border: 1px solid #ccc;
   border-radius: 8px;
   margin: 10px;
@@ -10,21 +9,21 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-height: 30%;
   float: left;
-  box-sizing: border-box; /* Include padding and border in the width calculation */
+  box-sizing: border-box;
   transition: transform 0.3s ease;
 }
+
 .paper-detail:hover {
-  transform: scale(1.03); /* Increase scale on hover */
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Add box shadow on hover */
-  /* background-color: #e7e7e7; */
+  transform: scale(1.03);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
   color: black;
 }
 
 .image-container {
   display: flex;
-  justify-content: flex-end; /* Align items to the right */
-  align-items: center; /* Vertically center items */
-  right:0;
+  justify-content: flex-end;
+  align-items: center;
+  right: 0;
   top: 0;
 }
 
@@ -37,71 +36,60 @@
   margin-right: 7px;
 }
 
-/* Add styles for the title parent section */
 .title-parent {
   display: flex;
   width: 100%;
-  margin-bottom: 10px; /* Add margin at the bottom to separate title from other content */
+  margin-bottom: 10px;
 }
 
-/* Add styles for the title */
 h6 {
-  font-size: 18px; /* Set a fixed font size for the title */
-  margin: 0; /* Remove default margin for the title */
+  font-size: 18px;
+  margin: 0;
 }
 
-/* Add styles for the author-doi container */
 .author-doi-container {
-  height: 70px; /* Set a fixed height for the author-doi container */
-  overflow-y: auto;
-}
-.title {
-  height: 70px; /* Set a fixed height for the author-doi container */
+  height: 70px;
   overflow-y: auto;
 }
 
-/* Add styles for the authors and DOI */
+.title {
+  height: 70px;
+  overflow-y: auto;
+}
+
 .authors,
 .doi {
-  font-size: 14px; /* Set a fixed font size for authors and DOI */
-  margin: 0; /* Remove default margin for authors and DOI */
+  font-size: 14px;
+  margin: 0;
   overflow: hidden;
-  text-overflow: ellipsis; /* Add ellipsis (...) for overflowing text */
+  text-overflow: ellipsis;
 }
 
-/* Add styles for the abstract container */
 .abstract-container {
-  /* height: 400px; Set a fixed height for the abstract content */
-  overflow-y: scroll; /* Enable vertical scroll if the content overflows */
-  margin-bottom: 10px; /* Add margin at the bottom to separate abstract and comments */
+  overflow-y: scroll;
+  margin-bottom: 10px;
   text-align: justify;
 }
 
-/* Remove default margin for the abstract paragraph */
 .abstract {
-  margin: 0; /* Remove default margin for the abstract paragraph */
+  margin: 0;
 }
 
 .comment-container {
   position: relative;
-  /* border: 1px solid red; */
   background-color: rgb(240, 240, 240);
   border-radius: 6px;
   margin-bottom: 10px;
   margin-right: 5px;
-
   padding: 5px;
 }
 
-
-/* Add styles for the single comment section */
 .comment-text {
   width: 100%;
-  resize: vertical; 
+  resize: vertical;
   background-color: rgb(240, 240, 240);
   display: block;
   text-align: left;
-  /* border: 1px solid rgb(58, 58, 58); */
   border: none;
   outline: none;
   border-radius: 5px;
@@ -113,30 +101,26 @@ h6 {
 
 .edit-btns {
   position: 'absolute';
-  bottom: 0; 
-  right: 0; 
+  bottom: 0;
+  right: 0;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   margin-left: auto;
   margin-right: 0;
   padding: 5px 0;
-  /* border: 1px solid black; */
-  /* border-radius: 5px; */
 }
+
 .edit-btns img {
   height: 20px;
   width: 20px;
 }
 
-
-/* Add styles for the comment input section */
 .comment-input {
   width: 95%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* flex-wrap: nowrap; */
   align-items: start;
   margin: auto;
   margin-top: 10px;
@@ -144,13 +128,14 @@ h6 {
 
 .comment {
   width: 90%;
-  resize: vertical; 
+  resize: vertical;
   background-color: rgb(240, 240, 240);
   margin-right: 10px;
   border-radius: 10px;
   padding: 8px;
 }
+
 .comment-btn {
-  border-radius: 30px;
+  border-radius: 8px;
   font-size: 14px;
 }
