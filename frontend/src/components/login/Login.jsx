@@ -16,29 +16,22 @@ const Login = () => {
         let name = e.target.name;
         let val = e.target.value;
         setformdata({ ...form, [name]: val })
-        console.log(form);
     }
     const login = () => {
-        // let params = new URLSearchParams()
-        console.log({ form: form })
         axios.post(baseurl, {
             emailId: form.emailId,
             password: form.password
         }).then(res => {
-            console.log(res)
-            // sessionStorage.setItem("JWTToken",res.);
-            // alert(res.data.message);
-            console.log(res.data.token)
             sessionStorage.setItem('userLoggedIn', form.emailId)
-            sessionStorage.setItem('token',res.data.token)
+            sessionStorage.setItem('token', res.data.token)
             navigate('/home')
-        }).catch(err=>alert(err.response.data.message))
+        }).catch(err => alert(err.response.data.message))
     }
     return (
         <div className="login-body">
             <h1>Research Paper Collaboration Tool</h1>
             <div className="login-container">
-                
+
                 <div className="image-container">
                     <img id="login-image" src="login.svg" alt="" />
                 </div>
@@ -55,7 +48,7 @@ const Login = () => {
 
                             <button type="button" className="btn3" onClick={login}>Login</button>
                         </form>
-                        <Link to="/" style={{color: "white", textDecoration: "none"}}>
+                        <Link to="/" style={{ color: "white", textDecoration: "none" }}>
                             <button type="button" className="btn3">Register</button>
                         </Link>
                     </div>

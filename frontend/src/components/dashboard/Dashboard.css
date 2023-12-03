@@ -1,4 +1,4 @@
-main{
+main {
     height: 80vh;
 }
 
@@ -7,27 +7,25 @@ main{
     border: 1px solid black;
     padding: 15px;
     border-radius: 50px;
-    /* background-color: black; */
 }
 
 #search-input-2 {
     width: 50%;
     margin-top: 10px;
+    margin-bottom: 5px;
     border-radius: 50px;
     padding: 8px;
     outline: none;
-    /* background: transparent; */
-    /* border: none; */
-    /* outline: none; */
     font-size: 18px;
     font-weight: 300px;
     text-align: center;
     color: black;
 }
+
 #search-input-2::placeholder {
     color: rgb(75, 75, 75);
 }
 
-.papers{
+.papers {
     max-height: 100vh;
 }

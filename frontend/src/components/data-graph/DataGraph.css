@@ -20,7 +20,8 @@
   border-radius: 15px;
   border-color: black;
   /* background: rgb(231, 231, 231); */
-  background: linear-gradient(to right,#e3ffe3, #f8f1a4);border: 1px solid #ccc;
+  background: linear-gradient(to right, #e3ffe3, #f8f1a4);
+  border: 1px solid #ccc;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
@@ -40,7 +41,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
   display: none;
-  
+
 }
 
 .tooltip-content {
